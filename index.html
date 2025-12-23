@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bratmın Yolkası</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(#00111a,#003344);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    color:white;
+    font-family:Arial;
+}
+
+.tree{
+    position:relative;
+    width:0;
+    height:0;
+    border-left:120px solid transparent;
+    border-right:120px solid transparent;
+    border-bottom:200px solid #0b8f3a;
+}
+
+.tree::before{
+    content:"";
+    position:absolute;
+    top:40px;
+    left:-90px;
+    border-left:90px solid transparent;
+    border-right:90px solid transparent;
+    border-bottom:160px solid #0a7a32;
+}
+
+.tree::after{
+    content:"";
+    position:absolute;
+    top:90px;
+    left:-60px;
+    border-left:60px solid transparent;
+    border-right:60px solid transparent;
+    border-bottom:120px solid #096b2c;
+}
+
+.trunk{
+    width:40px;
+    height:60px;
+    background:#5a3a1a;
+}
+
+.light{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    position:absolute;
+    animation:blink 1.5s infinite;
+    box-shadow:0 0 10px currentColor;
+}
+
+@keyframes blink{
+    0%,100%{opacity:.3}
+    50%{opacity:1}
+}
+
+.snow{
+    position:fixed;
+    top:-10px;
+    pointer-events:none;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{transform:translateY(110vh)}
+}
+
+.text{
+    margin-top:20px;
+    font-size:22px;
+    text-shadow:0 0 10px gold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tree" id="tree"></div>
+<div class="trunk"></div>
+<div class="text">🎄 Bratmın yolkası 🎄</div>
+
+<script>
+const tree=document.getElementById("tree");
+const colors=["red","yellow","blue","cyan","pink","orange"];
+
+for(let i=0;i<15;i++){
+    const l=document.createElement("div");
+    l.className="light";
+    l.style.background=colors[Math.random()*colors.length|0];
+    l.style.color=l.style.background;
+    l.style.top=Math.random()*160+"px";
+    l.style.left=(Math.random()*180-90)+"px";
+    l.style.animationDelay=Math.random()*2+"s";
+    tree.appendChild(l);
+}
+
+setInterval(()=>{
+    const s=document.createElement("div");
+    s.className="snow";
+    s.innerHTML="❄";
+    s.style.left=Math.random()*innerWidth+"px";
+    s.style.fontSize=Math.random()*10+10+"px";
+    s.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),5000);
+},150);
+</script>
+
+</body>
+</html>
